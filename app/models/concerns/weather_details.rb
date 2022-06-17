@@ -19,12 +19,12 @@ class WeatherDetails
     "http://api.weatherapi.com/v1/current.json?key=#{API_KEY}&q=#{postcode}&aqi=no"
   end
 
-  # https://www.weatherapi.com/api-explorer.aspx#history
-  # http://api.weatherapi.com/v1/history.json?key=ba0fc5acc907496d80c185358221606&q=London&dt=2010-01-01
-
-  #http://api.weatherapi.com/v1/history.json?key=ba0fc5acc907496d80c185358221606&q=London&dt=2021-01-01
-
   def self.historical_postcode_uri(postcode)
-    "http://api.weatherapi.com/v1/historical.json?key=#{API_KEY}&q=#{postcode}&aqi=no"
+    query = {key: API_KEY, q: postcode, dt: Date.today.to_s}.to_query
+    "http://api.weatherapi.com/v1/history.json?#{query}"
   end
 end
+
+# console usage
+# w = WeatherDetails.new(WeatherDetails.historical_postcode_uri('M14 4BG')).api_response
+# JSON.parse(w)['forecast']['forecastday'].first['day']['maxtemp_c']
