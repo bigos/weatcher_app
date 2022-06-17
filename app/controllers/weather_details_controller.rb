@@ -1,7 +1,7 @@
 class WeatherDetailsController < ApplicationController
   def weather_search
-    postcode_uri = WeatherDetails.postcode_uri(params[:postcode])
-    @weather = JSON.parse WeatherDetails.new(postcode_uri).api_response
+    current_postcode_uri = WeatherDetails.current_postcode_uri(params[:postcode])
+    @weather = JSON.parse WeatherDetails.new(current_postcode_uri).api_response
 
     #Saves temperature in degree C for the search input
 
